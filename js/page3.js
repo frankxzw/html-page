@@ -115,6 +115,4 @@ journey.querySelector(".journey__routes").addEventListener("click", (event) => {
   if (event.target.closest(".journey__route")) showStep("selection");
 });
 joinButton.addEventListener("click", () => showStep("roaming"));
-journey.querySelector(".journey__start").addEventListener("click", (event) => {
-  event.currentTarget.animate([{ filter: "brightness(.82)" }, { filter: "brightness(1)" }], { duration: 180 });
-});
+journey.querySelector(".journey__start").addEventListener("click", () => journey.close());

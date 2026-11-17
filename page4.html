@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>十里红妆 · 百物成家</title>
+  <link rel="icon" href="assets/images/scroll.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=page4-card">
+  <script type="module" src="js/page4.js?v=card"></script>
+</head>
+<body>
+  <main class="exhibit homemaking" data-mode="cover" aria-label="十里红妆">
+    <section class="catalog__scene" aria-label="百物成家展陈">
+      <img class="catalog__background" src="assets/images/page-4/homemaking-gallery.jpeg" width="1672" height="941"
+           alt="庭院中陈列着红妆家居与梳妆器物，两位参观者驻足观看。" draggable="false" fetchpriority="high">
+      <button class="plaque scene__entry" type="button" id="enter-homemaking">
+        <img src="assets/images/page-4/ppt-search.png" alt="点击搜索">
+      </button>
+
+      <header class="scene__heading exploration-only">
+        <h1 id="homemaking-title" tabindex="-1">
+          <img src="assets/images/page-4/ppt-homemaking-heading.png" width="764" height="101"
+               alt="百物成家，入户 · 陈设 · 融合 · 成家">
+        </h1>
+      </header>
+
+      <ul class="catalog__categories exploration-only" role="list">
+        <li style="--category-x: 10.45%; --category-y: 32.10%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name" id="grooming-title" tabindex="-1">理妆</h2>
+            <p class="catalog-card__items">还原日常梳妆情境，感受红妆器物中的生活美学与细腻心意</p>
+          </div>
+        </li>
+        <li style="--category-x: 37.41%; --category-y: 42.31%">
+          <button class="catalog-card" type="button" id="open-homemaking" aria-label="查看互动体验示意图"
+                  aria-describedby="homemaking-items" aria-haspopup="dialog" aria-controls="homemaking-demo">
+            <span class="catalog-card__name">互动体验</span>
+            <span class="catalog-card__items" id="homemaking-items">选择心仪器物，即可将其拖拽放置于不同的生活场景之中，感受成家的喜悦</span>
+            <img class="catalog-card__hand" src="assets/images/catalog-hand.png" width="64" height="64" alt="" draggable="false" hidden>
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="scene-nav exploration-only" aria-label="参观导航">
+      <a class="plaque" href="index.html">
+        <img src="assets/images/ppt-home.png" alt="首页">
+      </a>
+      <button class="plaque" type="button" id="homemaking-explore">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+      <a class="plaque" href="page5.html">
+        <img src="assets/images/ppt-continue.png" alt="继续参观">
+      </a>
+      <button class="plaque" type="button" id="toggle-help" aria-controls="help-panel" aria-expanded="true">
+        <img src="assets/images/ppt-help-button.png" alt="帮助说明">
+      </button>
+    </nav>
+
+    <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
+      <img src="assets/images/ppt-help-panel.png" alt="">
+      <ul class="help-panel__copy" role="list">
+        <li>轻触器物，挑选红妆</li>
+        <li>拖拽放置，布置家居</li>
+        <li>融入场景，百物成家</li>
+      </ul>
+    </aside>
+  </main>
+
+  <dialog class="atlas journey-dialog homemaking-dialog" id="homemaking-demo" aria-label="互动体验示意图">
+    <form method="dialog">
+      <button class="atlas__close journey__close" type="submit" aria-label="关闭互动体验示意图" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+    </form>
+    <img class="journey__art" src="assets/images/page-4/placement.webp" width="1672" height="941"
+         alt="佩戴头显的参观者从镜台、妆奁、圆盒和花瓶中选择器物，左侧展示四个可供布置的家居场景。">
+  </dialog>
+</body>
+</html>

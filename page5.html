@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>十里红妆 · 家有所愿</title>
+  <link rel="icon" href="assets/images/scroll.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=page5-card">
+  <link rel="preload" as="image" href="assets/images/page-5/wishes-gallery.webp" fetchpriority="low">
+  <script type="module" src="js/page5.js?v=card"></script>
+</head>
+<body>
+  <main class="exhibit wishes" data-mode="cover" aria-label="十里红妆">
+    <section class="catalog__scene" aria-label="家有所愿展陈">
+      <img class="catalog__background" src="assets/images/page-5/wishes-cover.jpeg" width="1672" height="941"
+           alt="红梅与花窗掩映着白天的展厅，参观者沿着廊道前行。" draggable="false" fetchpriority="high">
+      <button class="plaque scene__entry" type="button" id="enter-wishes">
+        <img src="assets/images/page-4/ppt-search.png" alt="点击搜索">
+      </button>
+
+      <header class="scene__heading exploration-only">
+        <h1 id="wishes-title" tabindex="-1">
+          <img src="assets/images/page-5/ppt-wishes-heading.png" width="764" height="101"
+               alt="家有所愿，许愿 · 共创 · 焕新 · 传承">
+        </h1>
+      </header>
+
+      <ul class="catalog__categories exploration-only" role="list">
+        <li style="--category-x: 81.72%; --category-y: 16.12%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name" id="lights-title" tabindex="-1">点亮万家</h2>
+            <p class="catalog-card__items">确认生成结果，将你的未来之家化作一扇发光的窗，汇入“万家灯火”之中</p>
+          </div>
+        </li>
+        <li style="--category-x: 45.95%; --category-y: 35.79%">
+          <button class="catalog-card" type="button" id="open-wishes" aria-label="打开共绘未来"
+                  aria-describedby="wishes-items" aria-haspopup="dialog" aria-controls="wish-dialog">
+            <span class="catalog-card__name">共绘未来</span>
+            <span class="catalog-card__items" id="wishes-items">选择理想之家的关键词，由 AI 结合红妆元素，生成属于你的“未来之家”</span>
+            <img class="catalog-card__hand" src="assets/images/catalog-hand.png" width="64" height="64" alt="" draggable="false" hidden>
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="scene-nav exploration-only" aria-label="参观导航">
+      <a class="plaque" href="index.html">
+        <img src="assets/images/ppt-home.png" alt="首页">
+      </a>
+      <button class="plaque" type="button" id="wishes-explore">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+      <a class="plaque" href="page4.html?mode=explore">
+        <img src="assets/images/page-5/ppt-return.png" alt="返回参观">
+      </a>
+      <button class="plaque" type="button" id="toggle-help" aria-controls="help-panel" aria-expanded="true">
+        <img src="assets/images/ppt-help-button.png" alt="帮助说明">
+      </button>
+    </nav>
+
+    <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
+      <img src="assets/images/ppt-help-panel.png" alt="">
+      <ul class="help-panel__copy" role="list">
+        <li>轻触时代，穿行家景</li>
+        <li>写下心愿，生成未来</li>
+        <li>点亮一窗，汇聚万家</li>
+      </ul>
+    </aside>
+  </main>
+
+  <dialog class="atlas journey-dialog wish-dialog" id="wish-dialog" aria-label="共绘未来">
+    <form method="dialog">
+      <button class="atlas__close journey__close" type="submit" aria-label="关闭共绘未来" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+
+      <div class="wish-workflow">
+        <header class="wish-workflow__header">
+          <img src="assets/images/page-5/workflow-heading.webp" width="1804" height="166"
+               alt="第五空间，家有所愿 · 共绘未来。请选择你的生活心愿，开启未来之家的想象。">
+          <ol class="wish-progress" aria-label="共绘未来流程" role="list">
+            <li aria-current="step"><span>01</span>选择心愿</li>
+            <li><span>02</span>挑选器物</li>
+            <li><span>03</span>生成新家</li>
+            <li><span>04</span>汇入灯海</li>
+          </ol>
+        </header>
+
+        <section class="wish-step wish-step--wishes" data-wish-step aria-labelledby="wish-options-title">
+          <h2 class="journey__heading" id="wish-options-title" tabindex="-1">选择心愿</h2>
+          <p class="journey__heading" id="wish-options-help">请选择你向往的生活心愿（可多选），它将成为未来之家的灵感起点。</p>
+          <div class="wish-step__options">
+            <fieldset class="wish-options" aria-labelledby="wish-options-title" aria-describedby="wish-options-help">
+              <label class="wish-option">
+                <img src="assets/images/page-5/warmth.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">温暖</span>
+                <span class="wish-option__caption">家常烟火 · 温馨相伴</span>
+                <input type="checkbox" name="wish" value="温暖">
+              </label>
+              <label class="wish-option">
+                <img src="assets/images/page-5/companionship.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">陪伴</span>
+                <span class="wish-option__caption">家人相守 · 岁月同行</span>
+                <input type="checkbox" name="wish" value="陪伴">
+              </label>
+              <label class="wish-option">
+                <img src="assets/images/page-5/nature.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">自然</span>
+                <span class="wish-option__caption">绿意环绕 · 亲近自然</span>
+                <input type="checkbox" name="wish" value="自然">
+              </label>
+              <label class="wish-option">
+                <img src="assets/images/page-5/freedom.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">自由</span>
+                <span class="wish-option__caption">心之所向 · 从容生活</span>
+                <input type="checkbox" name="wish" value="自由">
+              </label>
+              <label class="wish-option">
+                <img src="assets/images/page-5/settling.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">安居</span>
+                <span class="wish-option__caption">居所安稳 · 生活无忧</span>
+                <input type="checkbox" name="wish" value="安居">
+              </label>
+              <label class="wish-option">
+                <img src="assets/images/page-5/reunion.webp" width="71" height="64" alt="">
+                <span class="wish-option__name">团圆</span>
+                <span class="wish-option__caption">阖家团聚 · 幸福长久</span>
+                <input type="checkbox" name="wish" value="团圆">
+              </label>
+            </fieldset>
+
+            <section class="wish-preview" aria-live="polite" aria-atomic="true">
+              <img src="assets/images/page-5/warmth.webp" width="71" height="64" alt="">
+              <h3>温暖</h3>
+              <p>希望拥有一个充满烟火气的家，在日常的点滴中，感受家人的陪伴与温暖。</p>
+            </section>
+          </div>
+
+          <div class="wish-step__actions">
+            <button class="wish-action" type="button" id="reset-wishes">
+              <img src="assets/images/page-5/wish-reset.webp" width="369" height="68" alt="重新选择">
+            </button>
+            <button class="wish-action" type="button" data-next="1">
+              <img src="assets/images/page-5/wish-next.webp" width="463" height="69" alt="下一步：挑选器物">
+            </button>
+          </div>
+        </section>
+
+        <section class="wish-step wish-step--artifacts" data-wish-step aria-labelledby="wish-artifacts-title" hidden>
+          <div class="wish-step__panel">
+            <div class="wish-step__title">
+              <h2 id="wish-artifacts-title" tabindex="-1"><span aria-hidden="true">02</span> 挑选器物</h2>
+              <p id="wish-artifacts-help">从十里红妆中，挑选代表家的器物（可多选）</p>
+            </div>
+            <fieldset class="wish-artifacts" aria-labelledby="wish-artifacts-title" aria-describedby="wish-artifacts-help">
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-dressing-case.webp" alt="">
+                <span>妆奁</span><input type="checkbox" name="artifact" value="妆奁">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-basket.webp" alt="">
+                <span>提篮</span><input type="checkbox" name="artifact" value="提篮">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-bridal-chest.webp" alt="">
+                <span>红妆箱</span><input type="checkbox" name="artifact" value="红妆箱">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-bucket.webp" alt="">
+                <span>子孙桶</span><input type="checkbox" name="artifact" value="子孙桶">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-mirror.webp" alt="">
+                <span>铜镜</span><input type="checkbox" name="artifact" value="铜镜">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-wardrobe.webp" alt="">
+                <span>红衣柜</span><input type="checkbox" name="artifact" value="红衣柜">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-wedding-bed.webp" alt="">
+                <span>婚床</span><input type="checkbox" name="artifact" value="婚床">
+              </label>
+              <label class="wish-artifact">
+                <img src="assets/images/page-5/artifact-fruit-box.webp" alt="">
+                <span>果盒</span><input type="checkbox" name="artifact" value="果盒">
+              </label>
+            </fieldset>
+          </div>
+
+          <section class="wish-step__panel wish-basket" aria-labelledby="wish-basket-title">
+            <h3 id="wish-basket-title">已选器物</h3>
+            <ul class="wish-basket__list" role="list" aria-label="已选器物"></ul>
+            <button class="wish-action" type="button" data-next="2">
+              <img src="assets/images/page-5/artifact-next.webp" width="536" height="80" alt="进入新家生成">
+            </button>
+          </section>
+        </section>
+
+        <section class="wish-step wish-step--home" data-wish-step aria-labelledby="wish-home-title" hidden>
+          <div class="wish-step__panel">
+            <div class="wish-step__title">
+              <h2 id="wish-home-title" tabindex="-1"><span aria-hidden="true">03</span> 生成新家</h2>
+              <p id="wish-home-help">根据心愿与器物，选择你偏爱的未来之家（可单选）</p>
+            </div>
+            <fieldset class="wish-options" id="wish-home-options" aria-labelledby="wish-home-title" aria-describedby="wish-home-help">
+              <label class="wish-option wish-home-option">
+                <img src="assets/images/page-5/home-window.webp" alt="">
+                <span class="wish-option__name">临窗雅居</span><input type="radio" name="home" value="临窗雅居">
+              </label>
+              <label class="wish-option wish-home-option">
+                <img src="assets/images/page-5/home-living.webp" alt="">
+                <span class="wish-option__name">团圆客厅</span><input type="radio" name="home" value="团圆客厅">
+              </label>
+              <label class="wish-option wish-home-option">
+                <img src="assets/images/page-5/home-study.webp" alt="">
+                <span class="wish-option__name">静雅书房</span><input type="radio" name="home" value="静雅书房">
+              </label>
+              <label class="wish-option wish-home-option">
+                <img src="assets/images/page-5/home-courtyard.webp" alt="">
+                <span class="wish-option__name">温馨庭院</span><input type="radio" name="home" value="温馨庭院">
+              </label>
+            </fieldset>
+          </div>
+          <div class="wish-step__panel wish-home-preview">
+            <img class="wish-home-preview__image" src="assets/images/page-5/home-preview.webp" width="1017" height="395"
+                 alt="临窗雅居，窗外山水映照屋内红妆器物。">
+            <div class="wish-home-preview__basis">
+              <img src="assets/images/page-5/home-basis.webp" width="606" height="94"
+                   alt="生成依据。已选心愿：温暖 / 陪伴 / 自然。已选器物：妆奁 / 提篮 / 子孙桶。">
+              <button class="wish-action" type="button" data-next="3">
+                <img src="assets/images/page-5/home-confirm.webp" width="374" height="82" alt="确认新家">
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="wish-finale" data-wish-step aria-labelledby="wish-finale-title" hidden>
+        <h2 class="journey__heading" id="wish-finale-title" tabindex="-1">汇入灯海</h2>
+        <img src="assets/images/page-5/lantern-finale.webp" width="1859" height="846"
+             alt="你的未来之家，已汇入万家灯火。你的心愿之家，心愿：温暖，器物：妆奁、红妆箱，新家：已生成。">
+        <button class="wish-finale__action" type="button" aria-label="重新选择" style="--x: 22.4%; --width: 20.8%"></button>
+        <button class="wish-finale__action" type="button" aria-label="汇入灯海" style="--x: 49.7%; --width: 28.3%"></button>
+        <button class="wish-finale__action" type="button" aria-label="保存留念" style="--x: 77.5%; --width: 21.5%"></button>
+      </section>
+    </form>
+  </dialog>
+
+  <template id="wish-basket-item">
+    <li>
+      <img alt="">
+      <span></span>
+      <button type="button"><span aria-hidden="true">×</span></button>
+    </li>
+  </template>
+</body>
+</html>

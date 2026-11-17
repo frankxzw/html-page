@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>十里红妆 · 百物成列</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=carousel-arrows">
   <link rel="preload" as="image" href="assets/images/page-2/catalog-gallery.jpeg" fetchpriority="low">
-  <script type="module" src="js/page2.js?v=page-assets"></script>
+  <script type="module" src="js/page2.js?v=carousel-swipe"></script>
 </head>
 <body>
   <main class="exhibit catalog" data-mode="cover" aria-label="十里红妆">
@@ -93,25 +93,33 @@
         <img src="assets/images/close.png" alt="">
       </button>
     </header>
-    <div class="atlas__view" id="catalog-view" role="region" aria-label="图鉴画面" tabindex="0">
-      <div class="catalog-atlas__artwork">
-        <div class="catalog-atlas__items" role="group" aria-label="选择器物">
-          <button class="catalog-atlas__item catalog-atlas__item--case" type="button" aria-pressed="true"
-                  data-image="assets/images/page-2/catalog-dressing-case.png"
-                  data-description="妆奁图鉴。红色木质妆奁配有镜面和抽屉，用于盛放梳妆用品。">
-            <span>妆奁</span>
-          </button>
-          <button class="catalog-atlas__item catalog-atlas__item--mirror" type="button" aria-pressed="false"
-                  data-image="assets/images/page-2/catalog-bronze-mirror.png"
-                  data-description="铜镜图鉴。圆形铜镜配有雕纹、红色流苏与镜座，置于梳妆台上照容。">
-            <span>铜镜</span>
-          </button>
-        </div>
-        <div class="catalog-atlas__picture">
-          <img id="catalog-image" src="assets/images/page-2/catalog-dressing-case.png" width="1860" height="846"
-               alt="妆奁图鉴。红色木质妆奁配有镜面和抽屉，用于盛放梳妆用品。">
-        </div>
+    <div class="catalog-atlas__stage">
+      <div class="catalog-atlas__cards" id="catalog-cards" role="group" aria-label="梳妆器物信息卡">
+        <button class="catalog-atlas__card" type="button" aria-pressed="false">
+          <img src="assets/images/page-2/dressing-case-card.webp" alt="妆奁" width="1086" height="1448"
+               style="--card-art-frame: scale(1.3643, 1.1156) translate(-13.17%, -5.04%)" draggable="false">
+        </button>
+        <button class="catalog-atlas__card" type="button" aria-pressed="false">
+          <img src="assets/images/page-2/mirror-stand-card.webp" alt="镜台" width="1087" height="1447"
+               style="--card-art-frame: scale(1.3081, 1.0807) translate(-11.78%, -3.73%)" draggable="false">
+        </button>
+        <button class="catalog-atlas__card" type="button" aria-pressed="true">
+          <img src="assets/images/page-2/hairdressing-bucket-card.webp" alt="梳头桶" width="1086" height="1448"
+               style="--card-art-frame: scale(1.3977, 1.1286) translate(-12.62%, -5.66%)" draggable="false">
+        </button>
+        <button class="catalog-atlas__card" type="button" aria-pressed="false">
+          <img src="assets/images/page-2/jewelry-chest-card.webp" alt="首饰箱" width="1086" height="1448"
+               style="--card-art-frame: scale(1.3441, 1.0887) translate(-12.80%, -3.66%)" draggable="false">
+        </button>
+        <button class="catalog-atlas__card" type="button" aria-pressed="false">
+          <img src="assets/images/page-2/jewelry-box-card.webp" alt="首饰盒" width="1086" height="1448"
+               style="--card-art-frame: scale(1.3069, 1.0855) translate(-11.79%, -4.14%)" draggable="false">
+        </button>
       </div>
+      <button class="catalog-atlas__arrow catalog-atlas__arrow--previous" type="button" data-step="-1"
+              aria-label="向左查看一张卡片" aria-controls="catalog-cards"></button>
+      <button class="catalog-atlas__arrow catalog-atlas__arrow--next" type="button" data-step="1"
+              aria-label="向右查看一张卡片" aria-controls="catalog-cards"></button>
     </div>
   </dialog>
 </body>
