@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>十里红妆 · 一物一愿</title>
+  <link rel="icon" href="assets/images/scroll.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main class="exhibit" data-mode="cover" aria-label="十里红妆">
+    <section class="scene" aria-label="庭院场景">
+      <button class="plaque scene__entry" type="button" id="enter-exhibit">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+
+      <header class="scene__heading exploration-only">
+        <h1>
+          <img src="assets/images/page-1/ppt-heading.png" alt="一物一愿，识物 · 寻意 · 寄情 · 载愿">
+        </h1>
+      </header>
+
+      <div class="scene__world">
+        <img class="scene__background" src="assets/images/page-1/courtyard.jpeg" width="1671" height="941"
+             alt="梅花掩映的庭院里，人物沿着屏风与红妆器物布置的展道参观。" draggable="false">
+        <canvas class="scene__panorama" aria-hidden="true" hidden></canvas>
+
+        <div class="artifact artifact--chest exploration-only">
+          <button class="hotspot" type="button" aria-label="红板箱" aria-expanded="false"
+                  aria-controls="chest-wish"></button>
+          <div class="wish" id="chest-wish" hidden>
+            <div>
+              <h2>红板箱<span>｜安藏</span></h2>
+              <p>珍藏家物，愿岁岁皆安稳</p>
+            </div>
+            <button class="wish__open" type="button" aria-label="查看红板箱图鉴" aria-haspopup="dialog"
+                    data-title="红板箱图鉴" data-image="assets/images/page-1/red-chest.png">
+              <img src="assets/images/scroll.png" alt="">
+            </button>
+          </div>
+        </div>
+
+        <div class="artifact artifact--case exploration-only">
+          <button class="hotspot" type="button" aria-label="妆奁" aria-expanded="false"
+                  aria-controls="case-wish"></button>
+          <div class="wish" id="case-wish" hidden>
+            <div>
+              <h2>妆奁<span>｜美好</span></h2>
+              <p>妆点朝夕，愿日日皆欢喜</p>
+            </div>
+            <button class="wish__open" type="button" aria-label="查看妆奁图鉴" aria-haspopup="dialog"
+                    data-title="妆奁图鉴" data-image="assets/images/page-1/dressing-case.jpeg">
+              <img src="assets/images/scroll.png" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="scene-nav exploration-only" aria-label="参观导航">
+      <button class="plaque" type="button" id="return-home">
+        <img src="assets/images/ppt-home.png" alt="首页">
+      </button>
+      <button class="plaque" type="button" id="reset-exploration">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+      <a class="plaque" href="page2.html">
+        <img src="assets/images/ppt-continue.png" alt="继续参观">
+      </a>
+      <button class="plaque" type="button" id="toggle-help" aria-controls="help-panel" aria-expanded="true">
+        <img src="assets/images/ppt-help-button.png" alt="帮助说明">
+      </button>
+    </nav>
+
+    <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
+      <img src="assets/images/ppt-help-panel.png" alt="">
+      <ul class="help-panel__copy" role="list">
+        <li>扫描器物，品读寓意</li>
+        <li>旋转细看，探寻匠心</li>
+        <li>轻触器物，唤醒一愿</li>
+      </ul>
+    </aside>
+  </main>
+
+  <dialog class="atlas" aria-labelledby="atlas-title" id="atlas">
+    <header class="atlas__bar">
+      <h2 id="atlas-title"></h2>
+      <button class="atlas__close" type="button" id="close-atlas" aria-label="关闭图鉴" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+    </header>
+    <div class="atlas__view" id="atlas-view" role="region" aria-label="图鉴画面" tabindex="0">
+      <img id="atlas-image" alt="">
+    </div>
+  </dialog>
+</body>
+</html>

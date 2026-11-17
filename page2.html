@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>十里红妆 · 百物成列</title>
+  <link rel="icon" href="assets/images/scroll.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="assets/images/page-2/catalog-gallery.jpeg" fetchpriority="low">
+  <script type="module" src="js/page2.js?v=page-assets"></script>
+</head>
+<body>
+  <main class="exhibit catalog" data-mode="cover" aria-label="十里红妆">
+    <section class="catalog__scene" aria-labelledby="catalog-title">
+      <img class="catalog__background" src="assets/images/page-2/catalog-cover.jpeg" width="1672" height="941"
+           alt="参观者沿着庭院步入红妆展厅，廊间陈列着成列的器物。" draggable="false" fetchpriority="high">
+      <button class="plaque scene__entry" type="button" id="enter-catalog">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+
+      <header class="scene__heading exploration-only">
+        <h1 id="catalog-title" tabindex="-1">
+          <img src="assets/images/page-2/ppt-catalog-heading.png" width="764" height="101"
+               alt="百物成列，聚物 · 分类 · 识珍 · 解意">
+        </h1>
+      </header>
+
+      <ul class="catalog__categories exploration-only" role="list">
+        <li style="--category-x: 20.76%; --category-y: 31.68%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name">收纳之具</h2>
+            <p class="catalog-card__items">红板箱、红衣柜、杠箱、百宝箱、小红箱、竹箱</p>
+          </div>
+        </li>
+        <li style="--category-x: 30.93%; --category-y: 50.70%">
+          <button class="catalog-card" type="button" id="open-dressing-tools"
+                  aria-haspopup="dialog" aria-controls="catalog-atlas"
+                  aria-labelledby="dressing-tools-title" aria-describedby="dressing-tools-items">
+            <span class="catalog-card__name" id="dressing-tools-title">梳妆之具</span>
+            <span class="catalog-card__items" id="dressing-tools-items">妆奁、镜台、梳头桶、首饰箱、首饰盒</span>
+          </button>
+        </li>
+        <li style="--category-x: 41.33%; --category-y: 25.66%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name">饮食之具</h2>
+            <p class="catalog-card__items">米桶、饭篮、果桶、茶壶桶、水桶、食盒、盘、碗</p>
+          </div>
+        </li>
+        <li style="--category-x: 52.85%; --category-y: 30.38%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name">起居之具</h2>
+            <p class="catalog-card__items">婚床、春凳、靠背椅、房前桌、红衣架</p>
+          </div>
+        </li>
+        <li style="--category-x: 77.10%; --category-y: 25.71%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name">女红之具</h2>
+            <p class="catalog-card__items">帖盒、红祭盘、针线篓、针线桶、荷包、香袋、绣花鞋</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="scene-nav exploration-only" aria-label="参观导航">
+      <a class="plaque" href="index.html">
+        <img src="assets/images/ppt-home.png" alt="首页">
+      </a>
+      <button class="plaque" type="button" id="catalog-explore">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+      <a class="plaque" href="page3.html">
+        <img src="assets/images/ppt-continue.png" alt="继续参观">
+      </a>
+      <button class="plaque" type="button" id="toggle-help" aria-controls="help-panel" aria-expanded="true">
+        <img src="assets/images/ppt-help-button.png" alt="帮助说明">
+      </button>
+    </nav>
+
+    <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
+      <img src="assets/images/ppt-help-panel.png" alt="">
+      <ul class="help-panel__copy" role="list">
+        <li>轻触分类，探索百物</li>
+        <li>点击器物，品读红妆</li>
+        <li>收藏红妆，共筑新家</li>
+      </ul>
+    </aside>
+  </main>
+
+  <dialog class="atlas catalog-atlas" id="catalog-atlas" aria-labelledby="catalog-atlas-title">
+    <header class="atlas__bar">
+      <h2 id="catalog-atlas-title">梳妆之具</h2>
+      <button class="atlas__close" type="button" id="close-catalog" aria-label="关闭图鉴" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+    </header>
+    <div class="atlas__view" id="catalog-view" role="region" aria-label="图鉴画面" tabindex="0">
+      <div class="catalog-atlas__artwork">
+        <div class="catalog-atlas__items" role="group" aria-label="选择器物">
+          <button class="catalog-atlas__item catalog-atlas__item--case" type="button" aria-pressed="true"
+                  data-image="assets/images/page-2/catalog-dressing-case.png"
+                  data-description="妆奁图鉴。红色木质妆奁配有镜面和抽屉，用于盛放梳妆用品。">
+            <span>妆奁</span>
+          </button>
+          <button class="catalog-atlas__item catalog-atlas__item--mirror" type="button" aria-pressed="false"
+                  data-image="assets/images/page-2/catalog-bronze-mirror.png"
+                  data-description="铜镜图鉴。圆形铜镜配有雕纹、红色流苏与镜座，置于梳妆台上照容。">
+            <span>铜镜</span>
+          </button>
+        </div>
+        <div class="catalog-atlas__picture">
+          <img id="catalog-image" src="assets/images/page-2/catalog-dressing-case.png" width="1860" height="846"
+               alt="妆奁图鉴。红色木质妆奁配有镜面和抽屉，用于盛放梳妆用品。">
+        </div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>

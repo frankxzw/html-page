@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>十里红妆 · 十里成行</title>
+  <link rel="icon" href="assets/images/scroll.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=page3-dialog">
+  <link rel="preload" as="image" href="assets/images/page-3/procession-gallery.jpeg" fetchpriority="low">
+  <script type="module" src="js/page3.js?v=page-assets"></script>
+</head>
+<body>
+  <main class="exhibit procession" data-mode="cover" aria-label="十里红妆">
+    <section class="catalog__scene" aria-label="十里成行展陈">
+      <img class="catalog__background" src="assets/images/page-3/procession-cover.jpeg" width="1672" height="941"
+           alt="红色花木掩映着迎亲展厅，参观者从庭院走近长廊。" draggable="false" fetchpriority="high">
+      <button class="plaque scene__entry" type="button" id="enter-procession">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+
+      <header class="scene__heading exploration-only">
+        <h1 id="procession-title" tabindex="-1">
+          <img src="assets/images/page-3/ppt-procession-heading.png" width="764" height="101"
+               alt="十里成行，迎亲 · 成行 · 巡游 · 传礼">
+        </h1>
+      </header>
+
+      <button class="procession__bridge exploration-only" type="button"
+              aria-label="打开十里成行" aria-haspopup="dialog" aria-controls="procession-journey" hidden>
+        <img src="assets/images/catalog-hand.png" width="64" height="64" alt="" draggable="false">
+      </button>
+
+      <ul class="catalog__categories exploration-only" role="list">
+        <li style="--category-x: 86.05%; --category-y: 19.64%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name" id="scroll-title" tabindex="-1">动态长卷</h2>
+            <p class="catalog-card__items">箱笼、轿子与行进人物以三维动态长卷的形式，跟随观众缓缓向前移动</p>
+          </div>
+        </li>
+        <li style="--category-x: 46.64%; --category-y: 29.38%">
+          <div class="catalog-card">
+            <h2 class="catalog-card__name">虚实叠加</h2>
+            <p class="catalog-card__items">屏幕可叠加相应的虚拟人物、器物与行进场景，让原本静止的展品进入动态队伍</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="scene-nav exploration-only" aria-label="参观导航">
+      <a class="plaque" href="index.html">
+        <img src="assets/images/ppt-home.png" alt="首页">
+      </a>
+      <button class="plaque" type="button" id="procession-explore">
+        <img src="assets/images/ppt-explore.png" alt="点击探索">
+      </button>
+      <button class="plaque" type="button" disabled>
+        <img src="assets/images/ppt-continue.png" alt="继续参观">
+      </button>
+      <button class="plaque" type="button" id="toggle-help" aria-controls="help-panel" aria-expanded="true">
+        <img src="assets/images/ppt-help-button.png" alt="帮助说明">
+      </button>
+    </nav>
+
+    <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
+      <img src="assets/images/ppt-help-panel.png" alt="">
+      <ul class="help-panel__copy" role="list">
+        <li>轻触启程，唤醒红妆</li>
+        <li>选择器物，加入队伍</li>
+        <li>跟随长卷，漫游十里</li>
+      </ul>
+    </aside>
+  </main>
+
+  <dialog class="atlas journey-dialog" id="procession-journey" aria-label="十里成行">
+    <button class="atlas__close journey__close" type="button" aria-label="关闭十里成行" autofocus>
+      <img src="assets/images/close.png" alt="">
+    </button>
+
+    <section class="journey__step journey__departure" data-step="departure" aria-labelledby="journey-departure">
+      <h2 class="journey__heading" id="journey-departure" tabindex="-1">轻触启程</h2>
+      <img class="journey__art" src="assets/images/page-3/departure.webp" width="1859" height="846" alt="">
+      <div class="journey__routes">
+        <button class="journey__route" type="button" aria-label="村口启程">
+          <img src="assets/images/page-3/village.webp" width="424" height="441" alt="">
+        </button>
+        <button class="journey__route" type="button" aria-label="桥上行进">
+          <img src="assets/images/page-3/bridge.webp" width="424" height="441" alt="">
+        </button>
+        <button class="journey__route" type="button" aria-label="入门成家">
+          <img src="assets/images/page-3/home.webp" width="424" height="441" alt="">
+        </button>
+      </div>
+    </section>
+
+    <section class="journey__step journey__selection" data-step="selection" aria-labelledby="journey-selection" hidden>
+      <header class="journey__selection-heading">
+        <h2 class="journey__heading" id="journey-selection" tabindex="-1">加入队伍</h2>
+        <p>器物和人物各至少选择一项</p>
+      </header>
+      <div class="journey__groups">
+        <section class="journey__group" data-group="artifacts" aria-labelledby="journey-artifacts">
+          <div class="journey__group-heading">
+            <h3 id="journey-artifacts">选择红妆器物</h3>
+            <span class="journey__count" aria-live="polite">已选 0 / 3</span>
+          </div>
+          <div class="journey__options"></div>
+          <p class="journey__message" role="status"></p>
+        </section>
+        <section class="journey__group" data-group="people" aria-labelledby="journey-people">
+          <div class="journey__group-heading">
+            <h3 id="journey-people">选择虚拟人物</h3>
+            <span class="journey__count" aria-live="polite">已选 0 / 3</span>
+          </div>
+          <div class="journey__options"></div>
+          <p class="journey__message" role="status"></p>
+        </section>
+      </div>
+      <button class="journey__action journey__join" type="button" aria-label="加入行进队伍" disabled>
+        <img src="assets/images/page-3/join.webp" width="476" height="91" alt="">
+      </button>
+    </section>
+
+    <section class="journey__step journey__roaming" data-step="roaming" aria-labelledby="journey-roaming" hidden>
+      <h2 class="journey__heading" id="journey-roaming" tabindex="-1">漫游十里</h2>
+      <img class="journey__art" src="assets/images/page-3/roaming.webp" width="1860" height="846"
+           alt="迎亲队伍沿石桥前行。长卷路线漫游、XR 沉浸体验、多视角随行。">
+      <button class="journey__action journey__start" type="button" aria-label="开始漫游十里">
+        <img src="assets/images/page-3/start-roaming.webp" width="622" height="138" alt="">
+      </button>
+    </section>
+  </dialog>
+</body>
+</html>
