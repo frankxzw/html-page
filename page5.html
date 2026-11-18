@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>十里红妆 · 家有所愿</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=page5-card">
+  <link rel="stylesheet" href="css/style.css?v=exhibit-panorama">
   <link rel="preload" as="image" href="assets/images/page-5/wishes-gallery.webp" fetchpriority="low">
-  <script type="module" src="js/page5.js?v=card"></script>
+  <script type="module" src="js/page5.js?v=exhibit-panorama-2"></script>
 </head>
 <body>
   <main class="exhibit wishes" data-mode="cover" aria-label="十里红妆">
     <section class="catalog__scene" aria-label="家有所愿展陈">
-      <img class="catalog__background" src="assets/images/page-5/wishes-cover.jpeg" width="1672" height="941"
-           alt="红梅与花窗掩映着白天的展厅，参观者沿着廊道前行。" draggable="false" fetchpriority="high">
+      <div class="catalog__backdrop">
+        <img class="catalog__background" src="assets/images/page-5/wishes-cover.jpeg" width="1672" height="941"
+             alt="红梅与花窗掩映着白天的展厅，参观者沿着廊道前行。" draggable="false" fetchpriority="high">
+        <canvas class="scene__panorama" aria-hidden="true" hidden></canvas>
+      </div>
       <button class="plaque scene__entry" type="button" id="enter-wishes">
         <img src="assets/images/page-4/ppt-search.png" alt="点击搜索">
       </button>
 
       <header class="scene__heading exploration-only">
         <h1 id="wishes-title" tabindex="-1">
-          <img src="assets/images/page-5/ppt-wishes-heading.png" width="764" height="101"
+          <img src="assets/images/page-5/ppt-wishes-heading.png?v=ppt-slide12" width="759" height="96"
                alt="家有所愿，许愿 · 共创 · 焕新 · 传承">
         </h1>
       </header>
@@ -70,9 +73,11 @@
 
   <dialog class="atlas journey-dialog wish-dialog" id="wish-dialog" aria-label="共绘未来">
     <form method="dialog">
-      <button class="atlas__close journey__close" type="submit" aria-label="关闭共绘未来" autofocus>
-        <img src="assets/images/close.png" alt="">
-      </button>
+      <div class="journey__toolbar">
+        <button class="atlas__close journey__close" type="submit" aria-label="关闭共绘未来" autofocus>
+          <img src="assets/images/close.png" alt="">
+        </button>
+      </div>
 
       <div class="wish-workflow">
         <header class="wish-workflow__header">

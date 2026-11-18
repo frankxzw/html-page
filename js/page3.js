@@ -1,6 +1,9 @@
+import { createScenePanorama } from "./panorama.js?v=exhibit-panorama-2";
+
 const exhibit = document.querySelector(".procession");
 const enterButton = document.querySelector("#enter-procession");
 const sceneImage = exhibit.querySelector(".catalog__background");
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
 const processionTitle = document.querySelector("#procession-title");
 const bridgeHand = exhibit.querySelector(".procession__bridge");
 const lastDescription = exhibit.querySelector(".catalog__categories > :last-child");
@@ -80,6 +83,7 @@ enterButton.addEventListener("click", async () => {
   sceneImage.src = "assets/images/page-3/procession-gallery.jpeg";
   sceneImage.alt = "红色长廊连着映出迎亲队伍的金色长卷，参观者在展厅前驻足。";
   exhibit.dataset.mode = "explore";
+  panorama.start();
   processionTitle.focus({ preventScroll: true });
 
   const [gallery] = await Promise.allSettled([

@@ -1,6 +1,9 @@
+import { createScenePanorama } from "./panorama.js?v=exhibit-panorama-2";
+
 const exhibit = document.querySelector(".wishes");
 const enterButton = document.querySelector("#enter-wishes");
 const sceneImage = exhibit.querySelector(".catalog__background");
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
 const exhibitTitle = document.querySelector("#wishes-title");
 const interactionCard = exhibit.querySelector(".catalog__categories > :last-child");
 const opener = interactionCard.querySelector("#open-wishes");
@@ -42,6 +45,7 @@ async function showExhibit() {
   sceneImage.src = "assets/images/page-5/wishes-gallery.webp";
   sceneImage.alt = "灯笼和烛光映照着夜色中的展厅，远处亮起山间灯火。";
   exhibit.dataset.mode = "explore";
+  panorama.start();
 
   await Promise.allSettled([
     sceneImage.decode(),

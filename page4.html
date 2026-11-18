@@ -5,21 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>十里红妆 · 百物成家</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=page4-card">
-  <script type="module" src="js/page4.js?v=card"></script>
+  <link rel="stylesheet" href="css/style.css?v=exhibit-panorama">
+  <script type="module" src="js/page4.js?v=exhibit-panorama-2"></script>
 </head>
 <body>
   <main class="exhibit homemaking" data-mode="cover" aria-label="十里红妆">
     <section class="catalog__scene" aria-label="百物成家展陈">
-      <img class="catalog__background" src="assets/images/page-4/homemaking-gallery.jpeg" width="1672" height="941"
-           alt="庭院中陈列着红妆家居与梳妆器物，两位参观者驻足观看。" draggable="false" fetchpriority="high">
+      <div class="catalog__backdrop">
+        <img class="catalog__background" src="assets/images/page-4/homemaking-gallery.jpeg" width="1672" height="941"
+             alt="庭院中陈列着红妆家居与梳妆器物，两位参观者驻足观看。" draggable="false" fetchpriority="high">
+        <canvas class="scene__panorama" aria-hidden="true" hidden></canvas>
+      </div>
       <button class="plaque scene__entry" type="button" id="enter-homemaking">
         <img src="assets/images/page-4/ppt-search.png" alt="点击搜索">
       </button>
 
       <header class="scene__heading exploration-only">
         <h1 id="homemaking-title" tabindex="-1">
-          <img src="assets/images/page-4/ppt-homemaking-heading.png" width="764" height="101"
+          <img src="assets/images/page-4/ppt-homemaking-heading.png?v=ppt-slide10" width="759" height="96"
                alt="百物成家，入户 · 陈设 · 融合 · 成家">
         </h1>
       </header>
@@ -32,7 +35,7 @@
           </div>
         </li>
         <li style="--category-x: 37.41%; --category-y: 42.31%">
-          <button class="catalog-card" type="button" id="open-homemaking" aria-label="查看互动体验示意图"
+          <button class="catalog-card" type="button" id="open-homemaking" aria-label="打开互动体验"
                   aria-describedby="homemaking-items" aria-haspopup="dialog" aria-controls="homemaking-demo">
             <span class="catalog-card__name">互动体验</span>
             <span class="catalog-card__items" id="homemaking-items">选择心仪器物，即可将其拖拽放置于不同的生活场景之中，感受成家的喜悦</span>
@@ -58,7 +61,7 @@
     </nav>
 
     <aside class="help-panel exploration-only" id="help-panel" aria-label="交互提示">
-      <img src="assets/images/ppt-help-panel.png" alt="">
+      <img src="assets/images/page-4/ppt-homemaking-help-panel.png" alt="">
       <ul class="help-panel__copy" role="list">
         <li>轻触器物，挑选红妆</li>
         <li>拖拽放置，布置家居</li>
@@ -67,14 +70,67 @@
     </aside>
   </main>
 
-  <dialog class="atlas journey-dialog homemaking-dialog" id="homemaking-demo" aria-label="互动体验示意图">
-    <form method="dialog">
-      <button class="atlas__close journey__close" type="submit" aria-label="关闭互动体验示意图" autofocus>
+  <dialog class="atlas journey-dialog homemaking-dialog" id="homemaking-demo" aria-label="百物成家互动体验">
+    <form class="journey__toolbar" method="dialog">
+      <button class="atlas__close journey__close" type="submit" aria-label="关闭互动体验" autofocus>
         <img src="assets/images/close.png" alt="">
       </button>
     </form>
-    <img class="journey__art" src="assets/images/page-4/placement.webp" width="1672" height="941"
-         alt="佩戴头显的参观者从镜台、妆奁、圆盒和花瓶中选择器物，左侧展示四个可供布置的家居场景。">
+    <section class="placement" aria-label="布置红妆家居">
+      <img class="placement__heading" src="assets/images/page-4/placement-heading.webp" width="1859" height="134"
+           alt="第四空间，红妆之物 · 生活之美。观众可进行拖拽。">
+      <div class="placement__body">
+        <div class="placement__scene">
+          <img src="assets/images/page-4/placement-scene.webp" width="1205" height="712"
+               alt="百物成家，宁海十里红妆。竹木框架内留有空白，左上角展示婚床布置示意图。" draggable="false">
+          <div class="placement__stage" tabindex="0" role="group" aria-label="家居布置区域"
+               aria-describedby="placement-instructions"></div>
+        </div>
+        <section class="placement__palette" aria-label="选择红妆器物">
+          <img class="placement__palette-heading" src="assets/images/page-4/placement-panel-heading.webp"
+               width="580" height="70" alt="百物成家">
+          <fieldset class="placement__categories">
+            <legend class="journey__heading">选择生活场景</legend>
+            <label>
+              <input type="radio" name="placement-category" value="grooming" aria-label="理妆">
+              <span><img src="assets/images/page-4/placement-grooming.webp" alt="">理妆</span>
+            </label>
+            <label>
+              <input type="radio" name="placement-category" value="gathering" aria-label="欢聚">
+              <span><img src="assets/images/page-4/placement-gathering.webp" alt="">欢聚</span>
+            </label>
+            <label>
+              <input type="radio" name="placement-category" value="storage" aria-label="藏珍">
+              <span><img src="assets/images/page-4/placement-storage.webp" alt="">藏珍</span>
+            </label>
+            <label>
+              <input type="radio" name="placement-category" value="leisure" aria-label="闲居">
+              <span><img src="assets/images/page-4/placement-leisure.webp" alt="">闲居</span>
+            </label>
+          </fieldset>
+          <div class="placement__content">
+            <h2 class="placement__subtitle" hidden>闲居 · 起居安然</h2>
+            <div class="placement__items" hidden>
+              <button class="placement__furniture" type="button" data-furniture="bed" aria-label="摆放婚床">
+                <img src="assets/images/page-4/placement-bed.webp" width="225" height="237" alt="" draggable="false">
+                <span>婚床</span>
+              </button>
+              <button class="placement__furniture" type="button" data-furniture="bench" aria-label="摆放春凳">
+                <img src="assets/images/page-4/placement-bench.webp" width="179" height="121" alt="" draggable="false">
+                <span>春凳</span>
+              </button>
+              <button class="placement__furniture" type="button" data-furniture="cabinet" aria-label="摆放床边小柜">
+                <img src="assets/images/page-4/placement-cabinet.webp" width="102" height="137" alt="" draggable="false">
+                <span>床边小柜</span>
+              </button>
+            </div>
+            <p class="placement__hint" hidden>按住物品拖入左侧，可继续拖动调整</p>
+          </div>
+        </section>
+      </div>
+      <p class="journey__heading" id="placement-instructions">将右侧物品拖入左侧框内任意位置。也可点击物品放到中央，再用方向键移动，按住 Shift 可加快移动，按 Delete 删除。</p>
+      <p class="journey__heading" id="placement-status" role="status"></p>
+    </section>
   </dialog>
 </body>
 </html>

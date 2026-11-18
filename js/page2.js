@@ -1,6 +1,9 @@
+import { createScenePanorama } from "./panorama.js?v=exhibit-panorama-2";
+
 const exhibit = document.querySelector(".catalog");
 const enterButton = document.querySelector("#enter-catalog");
 const sceneImage = exhibit.querySelector(".catalog__background");
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
 const catalogTitle = document.querySelector("#catalog-title");
 const opener = document.querySelector("#open-dressing-tools");
 const atlas = document.querySelector("#catalog-atlas");
@@ -37,6 +40,7 @@ function showCatalog() {
   sceneImage.src = "assets/images/page-2/catalog-gallery.jpeg";
   sceneImage.alt = "梅花与池水围绕着陈列红妆器物的长廊。";
   exhibit.dataset.mode = "explore";
+  panorama.start();
 }
 
 enterButton.addEventListener("click", () => {

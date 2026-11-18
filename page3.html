@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>十里红妆 · 十里成行</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=page3-dialog">
+  <link rel="stylesheet" href="css/style.css?v=exhibit-panorama">
   <link rel="preload" as="image" href="assets/images/page-3/procession-gallery.jpeg" fetchpriority="low">
-  <script type="module" src="js/page3.js?v=journey-close"></script>
+  <script type="module" src="js/page3.js?v=exhibit-panorama-2"></script>
 </head>
 <body>
   <main class="exhibit procession" data-mode="cover" aria-label="十里红妆">
     <section class="catalog__scene" aria-label="十里成行展陈">
-      <img class="catalog__background" src="assets/images/page-3/procession-cover.jpeg" width="1672" height="941"
-           alt="红色花木掩映着迎亲展厅，参观者从庭院走近长廊。" draggable="false" fetchpriority="high">
+      <div class="catalog__backdrop">
+        <img class="catalog__background" src="assets/images/page-3/procession-cover.jpeg" width="1672" height="941"
+             alt="红色花木掩映着迎亲展厅，参观者从庭院走近长廊。" draggable="false" fetchpriority="high">
+        <canvas class="scene__panorama" aria-hidden="true" hidden></canvas>
+      </div>
       <button class="plaque scene__entry" type="button" id="enter-procession">
         <img src="assets/images/ppt-explore.png" alt="点击探索">
       </button>
 
       <header class="scene__heading exploration-only">
         <h1 id="procession-title" tabindex="-1">
-          <img src="assets/images/page-3/ppt-procession-heading.png" width="764" height="101"
+          <img src="assets/images/page-3/ppt-procession-heading.png?v=ppt-slide8" width="759" height="96"
                alt="十里成行，迎亲 · 成行 · 巡游 · 传礼">
         </h1>
       </header>
@@ -72,9 +75,11 @@
   </main>
 
   <dialog class="atlas journey-dialog" id="procession-journey" aria-label="十里成行">
-    <button class="atlas__close journey__close" type="button" aria-label="关闭十里成行" autofocus>
-      <img src="assets/images/close.png" alt="">
-    </button>
+    <div class="journey__toolbar">
+      <button class="atlas__close journey__close" type="button" aria-label="关闭十里成行" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+    </div>
 
     <section class="journey__step journey__departure" data-step="departure" aria-labelledby="journey-departure">
       <h2 class="journey__heading" id="journey-departure" tabindex="-1">轻触启程</h2>

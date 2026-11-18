@@ -1,11 +1,15 @@
-export const maxPanoramaAngle = 15;
+export const maxPanoramaAngle = 10;
 
 const radiansPerDegree = Math.PI / 180;
 const viewField = 96;
 const sourceField = 130 * radiansPerDegree;
+const orbitDuration = 60000;
+const orbitResumeDelay = 1000;
 
-export function createPanorama(canvas, image, artifacts) {
+function createPanorama(canvas, image, artifacts) {
   const context = canvas.getContext("2d", { alpha: false });
+  if (!context) return null;
+
   const hotspots = Array.from(artifacts, (element) => {
     const style = getComputedStyle(element);
     return {
@@ -50,7 +54,7 @@ export function createPanorama(canvas, image, artifacts) {
   }
 
   function render(angle, zoom) {
-    if (!context || !image.naturalWidth || !canvas.width || !canvas.height) return;
+    if (!image.naturalWidth || !canvas.width || !canvas.height) return;
     if (zoom === projectedZoom && angle === lastAngle) return;
     if (zoom !== projectedZoom) buildProjection(zoom);
     lastAngle = angle;
@@ -80,4 +84,104 @@ export function createPanorama(canvas, image, artifacts) {
   }
 
   return { resize, render };
+}
+
+export function createScenePanorama(canvas, image, { artifacts = [], shouldPause = () => false } = {}) {
+  const panorama = createPanorama(canvas, image, artifacts);
+  const coverSrc = image.src;
+  const coverAlt = image.alt;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let activation = null;
+  let ready = false;
+  let frameId;
+  let previousFrame = null;
+  let phase = 0;
+  let resumeAt = 0;
+  let angle = 0;
+  let zoom = 1;
+
+  function render() {
+    if (ready) panorama.render(angle, zoom);
+  }
+
+  function setAngle(value) {
+    angle = Math.max(-maxPanoramaAngle, Math.min(maxPanoramaAngle, value));
+    render();
+  }
+
+  function setZoom(value) {
+    zoom = value;
+    render();
+  }
+
+  function animate(now) {
+    if (previousFrame !== null && !reducedMotion.matches && now >= resumeAt && !shouldPause()) {
+      const elapsed = Math.min(now - previousFrame, 50);
+      phase = (phase + elapsed * 2 * Math.PI / orbitDuration) % (2 * Math.PI);
+      setAngle(Math.sin(phase) * maxPanoramaAngle);
+    }
+    previousFrame = now;
+    frameId = requestAnimationFrame(animate);
+  }
+
+  function resize({ width, height }) {
+    panorama.resize(width, height);
+    render();
+  }
+
+  const observer = new ResizeObserver(([entry]) => {
+    if (ready) resize(entry.contentRect);
+  });
+
+  async function start() {
+    if (activation) return;
+    const current = {};
+    activation = current;
+    try {
+      await image.decode();
+    } catch {
+      if (activation !== current) return;
+      activation = null;
+      if (image.src !== coverSrc) {
+        image.src = coverSrc;
+        image.alt = coverAlt;
+      }
+      return;
+    }
+    if (activation !== current || !panorama) return;
+
+    ready = true;
+    resize(image.getBoundingClientRect());
+    observer.observe(image);
+    frameId = requestAnimationFrame(animate);
+  }
+
+  function stop() {
+    activation = null;
+    ready = false;
+    cancelAnimationFrame(frameId);
+    observer.disconnect();
+    canvas.hidden = true;
+    previousFrame = null;
+    phase = 0;
+    resumeAt = 0;
+    angle = 0;
+    zoom = 1;
+  }
+
+  function deferOrbit() {
+    resumeAt = performance.now() + orbitResumeDelay;
+  }
+
+  function resumeFromAngle() {
+    const phaseAtAngle = Math.asin(angle / maxPanoramaAngle);
+    phase = Math.cos(phase) < 0 ? Math.PI - phaseAtAngle : phaseAtAngle;
+    deferOrbit();
+  }
+
+  return {
+    get angle() { return angle; },
+    get zoom() { return zoom; },
+    start, stop, setAngle, setZoom, deferOrbit, resumeFromAngle,
+  };
 }
