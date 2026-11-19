@@ -1,4 +1,5 @@
 import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".homemaking");
 const enterButton = document.querySelector("#enter-homemaking");
@@ -176,15 +177,9 @@ stage.addEventListener("keydown", event => {
   positionItem(event.target, item.x + direction[0] * step, item.y + direction[1] * step);
 });
 
-async function showExhibit() {
+function showExhibit() {
   exhibit.dataset.mode = "explore";
   panorama.start();
-
-  await Promise.allSettled([
-    sceneImage.decode(),
-    ...interactionCard.getAnimations().map(animation => animation.finished),
-  ]);
-  hand.hidden = false;
 }
 
 enterButton.addEventListener("click", () => {
@@ -197,7 +192,13 @@ if (history.state?.exhibitMode === "explore" || new URLSearchParams(location.sea
   showExhibit();
 }
 
-exploreButton.addEventListener("click", () => groomingTitle.focus());
+bindExploreButton(exploreButton, groomingTitle, async () => {
+  await Promise.allSettled([
+    sceneImage.decode(),
+    ...interactionCard.getAnimations().map(animation => animation.finished),
+  ]);
+  hand.hidden = false;
+});
 helpButton.addEventListener("click", () => {
   helpPanel.hidden = !helpPanel.hidden;
   helpButton.setAttribute("aria-expanded", String(!helpPanel.hidden));

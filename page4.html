@@ -6,7 +6,7 @@
   <title>十里红妆 · 百物成家</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
   <link rel="stylesheet" href="css/style.css?v=exhibit-drag">
-  <script type="module" src="js/page4.js?v=exhibit-drag"></script>
+  <script type="module" src="js/page4.js?v=explore-reveal"></script>
 </head>
 <body>
   <main class="exhibit homemaking" data-mode="cover" aria-label="十里红妆">
@@ -27,7 +27,7 @@
         </h1>
       </header>
 
-      <ul class="catalog__categories exploration-only" role="list">
+      <ul class="catalog__categories exploration-only" id="homemaking-categories" role="list" hidden>
         <li style="--category-x: 10.45%; --category-y: 32.10%">
           <div class="catalog-card">
             <h2 class="catalog-card__name" id="grooming-title" tabindex="-1">理妆</h2>
@@ -49,7 +49,7 @@
       <a class="plaque" href="index.html">
         <img src="assets/images/ppt-home.png" alt="首页">
       </a>
-      <button class="plaque" type="button" id="homemaking-explore">
+      <button class="plaque" type="button" id="homemaking-explore" aria-controls="homemaking-categories" aria-expanded="false">
         <img src="assets/images/ppt-explore.png" alt="点击探索">
       </button>
       <a class="plaque" href="page5.html">

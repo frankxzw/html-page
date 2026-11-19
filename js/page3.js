@@ -1,4 +1,5 @@
 import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".procession");
 const enterButton = document.querySelector("#enter-procession");
@@ -25,6 +26,7 @@ const choices = {
     ["bride", "新娘"], ["dowry-attendant", "送妆娘"], ["sedan-bearer", "抬轿夫"], ["maid", "侍女"],
   ],
 };
+let galleryReady;
 
 function showStep(name) {
   for (const step of steps) {
@@ -79,21 +81,20 @@ for (const group of groups) {
   });
 }
 
-enterButton.addEventListener("click", async () => {
+enterButton.addEventListener("click", () => {
   sceneImage.src = "assets/images/page-3/procession-gallery.jpeg";
   sceneImage.alt = "红色长廊连着映出迎亲队伍的金色长卷，参观者在展厅前驻足。";
+  galleryReady = sceneImage.decode().then(() => true, () => false);
   exhibit.dataset.mode = "explore";
   panorama.start();
   processionTitle.focus({ preventScroll: true });
-
-  const [gallery] = await Promise.allSettled([
-    sceneImage.decode(),
-    ...lastDescription.getAnimations().map(animation => animation.finished),
-  ]);
-  bridgeHand.hidden = gallery.status !== "fulfilled";
 });
 
-document.querySelector("#procession-explore").addEventListener("click", () => scrollTitle.focus());
+bindExploreButton(document.querySelector("#procession-explore"), scrollTitle, async () => {
+  await Promise.allSettled(lastDescription.getAnimations().map(animation => animation.finished));
+  bridgeHand.hidden = !await galleryReady;
+});
+
 helpButton.addEventListener("click", () => {
   helpPanel.hidden = !helpPanel.hidden;
   helpButton.setAttribute("aria-expanded", String(!helpPanel.hidden));

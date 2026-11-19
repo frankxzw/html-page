@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
   <link rel="stylesheet" href="css/style.css?v=exhibit-drag">
   <link rel="preload" as="image" href="assets/images/page-5/wishes-gallery.webp" fetchpriority="low">
-  <script type="module" src="js/page5.js?v=exhibit-drag"></script>
+  <script type="module" src="js/page5.js?v=explore-reveal"></script>
 </head>
 <body>
   <main class="exhibit wishes" data-mode="cover" aria-label="十里红妆">
@@ -28,7 +28,7 @@
         </h1>
       </header>
 
-      <ul class="catalog__categories exploration-only" role="list">
+      <ul class="catalog__categories exploration-only" id="wishes-categories" role="list" hidden>
         <li style="--category-x: 81.72%; --category-y: 16.12%">
           <div class="catalog-card">
             <h2 class="catalog-card__name" id="lights-title" tabindex="-1">点亮万家</h2>
@@ -50,7 +50,7 @@
       <a class="plaque" href="index.html">
         <img src="assets/images/ppt-home.png" alt="首页">
       </a>
-      <button class="plaque" type="button" id="wishes-explore">
+      <button class="plaque" type="button" id="wishes-explore" aria-controls="wishes-categories" aria-expanded="false">
         <img src="assets/images/ppt-explore.png" alt="点击探索">
       </button>
       <a class="plaque" href="page4.html?mode=explore">

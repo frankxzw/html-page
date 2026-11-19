@@ -1,4 +1,5 @@
 import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".catalog");
 const enterButton = document.querySelector("#enter-catalog");
@@ -125,7 +126,7 @@ atlas.addEventListener("close", () => {
   opener.focus({ preventScroll: true });
 });
 
-document.querySelector("#catalog-explore").addEventListener("click", () => opener.focus());
+bindExploreButton(document.querySelector("#catalog-explore"), opener);
 helpButton.addEventListener("click", () => {
   helpPanel.hidden = !helpPanel.hidden;
   helpButton.setAttribute("aria-expanded", String(!helpPanel.hidden));

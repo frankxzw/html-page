@@ -1,4 +1,5 @@
 import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".wishes");
 const enterButton = document.querySelector("#enter-wishes");
@@ -41,17 +42,11 @@ const homePreviewImage = dialog.querySelector(".wish-home-preview__image");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let homePreviewAnimation;
 
-async function showExhibit() {
+function showExhibit() {
   sceneImage.src = "assets/images/page-5/wishes-gallery.webp";
   sceneImage.alt = "灯笼和烛光映照着夜色中的展厅，远处亮起山间灯火。";
   exhibit.dataset.mode = "explore";
   panorama.start();
-
-  await Promise.allSettled([
-    sceneImage.decode(),
-    ...interactionCard.getAnimations().map(animation => animation.finished),
-  ]);
-  hand.hidden = false;
 }
 
 function showWish(option) {
@@ -94,7 +89,13 @@ if (history.state?.exhibitMode === "explore") {
   showExhibit();
 }
 
-exploreButton.addEventListener("click", () => lightsTitle.focus());
+bindExploreButton(exploreButton, lightsTitle, async () => {
+  await Promise.allSettled([
+    sceneImage.decode(),
+    ...interactionCard.getAnimations().map(animation => animation.finished),
+  ]);
+  hand.hidden = false;
+});
 helpButton.addEventListener("click", () => {
   helpPanel.hidden = !helpPanel.hidden;
   helpButton.setAttribute("aria-expanded", String(!helpPanel.hidden));

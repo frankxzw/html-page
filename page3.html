@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
   <link rel="stylesheet" href="css/style.css?v=exhibit-drag">
   <link rel="preload" as="image" href="assets/images/page-3/procession-gallery.jpeg" fetchpriority="low">
-  <script type="module" src="js/page3.js?v=exhibit-drag"></script>
+  <script type="module" src="js/page3.js?v=explore-reveal"></script>
 </head>
 <body>
   <main class="exhibit procession" data-mode="cover" aria-label="十里红妆">
@@ -33,7 +33,7 @@
         <img src="assets/images/catalog-hand.png" width="64" height="64" alt="" draggable="false">
       </button>
 
-      <ul class="catalog__categories exploration-only" role="list">
+      <ul class="catalog__categories exploration-only" id="procession-categories" role="list" hidden>
         <li style="--category-x: 86.05%; --category-y: 19.64%">
           <div class="catalog-card">
             <h2 class="catalog-card__name" id="scroll-title" tabindex="-1">动态长卷</h2>
@@ -53,7 +53,7 @@
       <a class="plaque" href="index.html">
         <img src="assets/images/ppt-home.png" alt="首页">
       </a>
-      <button class="plaque" type="button" id="procession-explore">
+      <button class="plaque" type="button" id="procession-explore" aria-controls="procession-categories" aria-expanded="false">
         <img src="assets/images/ppt-explore.png" alt="点击探索">
       </button>
       <a class="plaque" href="page4.html">
