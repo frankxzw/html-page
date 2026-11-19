@@ -1,4 +1,4 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-panorama-2";
+import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
 
 const exhibit = document.querySelector(".homemaking");
 const enterButton = document.querySelector("#enter-homemaking");

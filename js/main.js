@@ -1,4 +1,4 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-panorama-2";
+import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
 
 const exhibit = document.querySelector(".exhibit");
 const scene = document.querySelector(".scene");
@@ -15,14 +15,12 @@ const atlasImage = document.querySelector("#atlas-image");
 const atlasView = document.querySelector("#atlas-view");
 const closeButton = document.querySelector("#close-atlas");
 const maxSceneZoom = 1.1;
-const dragDegreesPerSceneWidth = 100;
-let sceneDrag = null;
 let activeHotspot = null;
 let atlasOpener = null;
 
 const panorama = createScenePanorama(scene.querySelector(".scene__panorama"), sceneBackground, {
   artifacts: sceneWorld.querySelectorAll(".artifact"),
-  shouldPause: () => sceneDrag || activeHotspot || sceneWorld.querySelector(".hotspot:hover, .hotspot:focus-visible"),
+  shouldPause: () => activeHotspot || sceneWorld.querySelector(".hotspot:hover, .hotspot:focus-visible"),
 });
 
 function selectHotspot(nextHotspot) {
@@ -42,29 +40,6 @@ function showHelp(visible) {
   helpPanel.hidden = !visible;
   helpButton.setAttribute("aria-expanded", String(visible));
 }
-
-scene.addEventListener("pointerdown", (event) => {
-  if (exhibit.dataset.mode !== "explore" || event.target !== sceneBackground || !event.isPrimary || event.button !== 0) return;
-
-  sceneDrag = { pointerId: event.pointerId, originX: event.clientX, originAngle: panorama.angle };
-  scene.setPointerCapture(event.pointerId);
-  scene.classList.add("is-dragging");
-});
-
-scene.addEventListener("pointermove", (event) => {
-  if (event.pointerId !== sceneDrag?.pointerId) return;
-
-  const distance = (event.clientX - sceneDrag.originX) / scene.clientWidth;
-  panorama.setAngle(sceneDrag.originAngle - distance * dragDegreesPerSceneWidth);
-});
-
-scene.addEventListener("lostpointercapture", (event) => {
-  if (event.pointerId !== sceneDrag?.pointerId) return;
-
-  sceneDrag = null;
-  panorama.resumeFromAngle();
-  scene.classList.remove("is-dragging");
-});
 
 scene.addEventListener("wheel", (event) => {
   if (exhibit.dataset.mode !== "explore" || event.target !== sceneBackground || event.ctrlKey || event.metaKey || event.deltaY === 0) return;
@@ -93,10 +68,6 @@ enterButton.addEventListener("click", () => {
 homeButton.addEventListener("click", () => {
   history.replaceState(null, "");
   selectHotspot(null);
-  const pointerId = sceneDrag?.pointerId;
-  sceneDrag = null;
-  if (pointerId !== undefined && scene.hasPointerCapture(pointerId)) scene.releasePointerCapture(pointerId);
-  scene.classList.remove("is-dragging");
   panorama.stop();
   exhibit.dataset.mode = "cover";
   enterButton.focus({ preventScroll: true });

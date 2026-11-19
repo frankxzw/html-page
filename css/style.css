@@ -70,9 +70,10 @@ a:focus-visible,
   user-select: none;
 }
 
-.exhibit[data-mode="explore"] .scene__background {
+.exhibit[data-mode="explore"] :is(.scene__background, .catalog__background) {
   cursor: grab;
   touch-action: pan-y pinch-zoom;
+  user-select: none;
 }
 
 .scene__panorama {
@@ -83,8 +84,7 @@ a:focus-visible,
   pointer-events: none;
 }
 
-.scene.is-dragging,
-.exhibit[data-mode="explore"] .scene.is-dragging .scene__background {
+.exhibit[data-mode="explore"] :is(.scene__background, .catalog__background).is-dragging {
   cursor: grabbing;
 }
 

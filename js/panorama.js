@@ -5,6 +5,7 @@ const viewField = 96;
 const sourceField = 130 * radiansPerDegree;
 const orbitDuration = 60000;
 const orbitResumeDelay = 1000;
+const dragDegreesPerSceneWidth = 100;
 
 function createPanorama(canvas, image, artifacts) {
   const context = canvas.getContext("2d", { alpha: false });
@@ -99,6 +100,7 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   let resumeAt = 0;
   let angle = 0;
   let zoom = 1;
+  let drag = null;
 
   function render() {
     if (ready) panorama.render(angle, zoom);
@@ -115,7 +117,7 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   }
 
   function animate(now) {
-    if (previousFrame !== null && !reducedMotion.matches && now >= resumeAt && !shouldPause()) {
+    if (previousFrame !== null && !reducedMotion.matches && now >= resumeAt && !drag && !shouldPause()) {
       const elapsed = Math.min(now - previousFrame, 50);
       phase = (phase + elapsed * 2 * Math.PI / orbitDuration) % (2 * Math.PI);
       setAngle(Math.sin(phase) * maxPanoramaAngle);
@@ -157,6 +159,7 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   }
 
   function stop() {
+    clearDrag();
     activation = null;
     ready = false;
     cancelAnimationFrame(frameId);
@@ -173,15 +176,41 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
     resumeAt = performance.now() + orbitResumeDelay;
   }
 
-  function resumeFromAngle() {
+  function clearDrag() {
+    if (!drag) return;
+    const { pointerId } = drag;
+    drag = null;
+    image.classList.remove("is-dragging");
+    if (image.hasPointerCapture(pointerId)) image.releasePointerCapture(pointerId);
+  }
+
+  function moveDrag(event) {
+    if (event.pointerId !== drag?.pointerId) return;
+    const distance = (event.clientX - drag.originX) / image.clientWidth;
+    setAngle(drag.originAngle - distance * dragDegreesPerSceneWidth);
+  }
+
+  image.addEventListener("pointerdown", (event) => {
+    if (!ready || drag || !event.isPrimary || event.button !== 0) return;
+
+    drag = { pointerId: event.pointerId, originX: event.clientX, originAngle: angle };
+    image.setPointerCapture(event.pointerId);
+    image.classList.add("is-dragging");
+  });
+
+  image.addEventListener("pointermove", moveDrag);
+  image.addEventListener("pointerup", moveDrag);
+  image.addEventListener("lostpointercapture", (event) => {
+    if (event.pointerId !== drag?.pointerId) return;
+
+    clearDrag();
     const phaseAtAngle = Math.asin(angle / maxPanoramaAngle);
     phase = Math.cos(phase) < 0 ? Math.PI - phaseAtAngle : phaseAtAngle;
     deferOrbit();
-  }
+  });
 
   return {
-    get angle() { return angle; },
     get zoom() { return zoom; },
-    start, stop, setAngle, setZoom, deferOrbit, resumeFromAngle,
+    start, stop, setZoom, deferOrbit,
   };
 }
