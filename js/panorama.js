@@ -87,7 +87,9 @@ function createPanorama(canvas, image, artifacts) {
   return { resize, render };
 }
 
-export function createScenePanorama(canvas, image, { artifacts = [], shouldPause = () => false } = {}) {
+export function createScenePanorama(canvas, image, {
+  artifacts = [], shouldPause = () => false, resumeAtOrbitSpeed = false,
+} = {}) {
   const panorama = createPanorama(canvas, image, artifacts);
   const coverSrc = image.src;
   const coverAlt = image.alt;
@@ -98,6 +100,7 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   let previousFrame = null;
   let phase = 0;
   let resumeAt = 0;
+  let returningToCenter = false;
   let angle = 0;
   let zoom = 1;
   let drag = null;
@@ -116,11 +119,28 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
     render();
   }
 
+  function advanceOrbit(step) {
+    if (returningToCenter) {
+      const centerDistance = Math.abs(angle) / maxPanoramaAngle;
+      if (step < centerDistance) {
+        setAngle(angle - Math.sign(angle) * step * maxPanoramaAngle);
+        return;
+      }
+
+      // 匀速回到中点，在原有轨迹速度最高的位置接回往返运动。
+      phase = angle > 0 ? Math.PI : 0;
+      step -= centerDistance;
+      returningToCenter = false;
+    }
+
+    phase = (phase + step) % (2 * Math.PI);
+    setAngle(Math.sin(phase) * maxPanoramaAngle);
+  }
+
   function animate(now) {
     if (previousFrame !== null && !reducedMotion.matches && now >= resumeAt && !drag && !shouldPause()) {
       const elapsed = Math.min(now - previousFrame, 50);
-      phase = (phase + elapsed * 2 * Math.PI / orbitDuration) % (2 * Math.PI);
-      setAngle(Math.sin(phase) * maxPanoramaAngle);
+      advanceOrbit(elapsed * 2 * Math.PI / orbitDuration);
     }
     previousFrame = now;
     frameId = requestAnimationFrame(animate);
@@ -168,6 +188,7 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
     previousFrame = null;
     phase = 0;
     resumeAt = 0;
+    returningToCenter = false;
     angle = 0;
     zoom = 1;
   }
@@ -187,13 +208,14 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   function moveDrag(event) {
     if (event.pointerId !== drag?.pointerId) return;
     const distance = (event.clientX - drag.originX) / image.clientWidth;
+    drag.moved ||= distance !== 0;
     setAngle(drag.originAngle - distance * dragDegreesPerSceneWidth);
   }
 
   image.addEventListener("pointerdown", (event) => {
     if (!ready || drag || !event.isPrimary || event.button !== 0) return;
 
-    drag = { pointerId: event.pointerId, originX: event.clientX, originAngle: angle };
+    drag = { pointerId: event.pointerId, originX: event.clientX, originAngle: angle, moved: false };
     image.setPointerCapture(event.pointerId);
     image.classList.add("is-dragging");
   });
@@ -203,10 +225,16 @@ export function createScenePanorama(canvas, image, { artifacts = [], shouldPause
   image.addEventListener("lostpointercapture", (event) => {
     if (event.pointerId !== drag?.pointerId) return;
 
+    const resumeImmediately = resumeAtOrbitSpeed && drag.moved;
     clearDrag();
     const phaseAtAngle = Math.asin(angle / maxPanoramaAngle);
     phase = Math.cos(phase) < 0 ? Math.PI - phaseAtAngle : phaseAtAngle;
-    deferOrbit();
+    if (resumeImmediately) {
+      returningToCenter = angle !== 0;
+      resumeAt = 0;
+    } else {
+      deferOrbit();
+    }
   });
 
   return {

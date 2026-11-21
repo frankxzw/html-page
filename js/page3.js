@@ -1,14 +1,18 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { createScenePanorama } from "./panorama.js?v=orbit-resume";
 import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".procession");
 const enterButton = document.querySelector("#enter-procession");
 const sceneImage = exhibit.querySelector(".catalog__background");
-const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage, {
+  resumeAtOrbitSpeed: true,
+});
 const processionTitle = document.querySelector("#procession-title");
 const bridgeHand = exhibit.querySelector(".procession__bridge");
 const lastDescription = exhibit.querySelector(".catalog__categories > :last-child");
 const scrollTitle = document.querySelector("#scroll-title");
+const ritesButton = lastDescription.querySelector("#open-wedding-rites");
+const ritesDialog = document.querySelector("#wedding-rites");
 const helpButton = document.querySelector("#toggle-help");
 const helpPanel = document.querySelector("#help-panel");
 const journey = document.querySelector("#procession-journey");
@@ -94,6 +98,9 @@ bindExploreButton(document.querySelector("#procession-explore"), scrollTitle, as
   await Promise.allSettled(lastDescription.getAnimations().map(animation => animation.finished));
   bridgeHand.hidden = !await galleryReady;
 });
+
+ritesButton.addEventListener("click", () => ritesDialog.showModal());
+ritesDialog.addEventListener("close", () => ritesButton.focus({ preventScroll: true }));
 
 helpButton.addEventListener("click", () => {
   helpPanel.hidden = !helpPanel.hidden;

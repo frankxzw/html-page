@@ -1,10 +1,12 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { createScenePanorama } from "./panorama.js?v=orbit-resume";
 import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".catalog");
 const enterButton = document.querySelector("#enter-catalog");
 const sceneImage = exhibit.querySelector(".catalog__background");
-const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage, {
+  resumeAtOrbitSpeed: true,
+});
 const catalogTitle = document.querySelector("#catalog-title");
 const opener = document.querySelector("#open-dressing-tools");
 const atlas = document.querySelector("#catalog-atlas");

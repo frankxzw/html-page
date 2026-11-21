@@ -1,10 +1,12 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { createScenePanorama } from "./panorama.js?v=orbit-resume";
 import { bindExploreButton } from "./explore.js";
 
 const exhibit = document.querySelector(".homemaking");
 const enterButton = document.querySelector("#enter-homemaking");
 const sceneImage = exhibit.querySelector(".catalog__background");
-const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage);
+const panorama = createScenePanorama(exhibit.querySelector(".scene__panorama"), sceneImage, {
+  resumeAtOrbitSpeed: true,
+});
 const exhibitTitle = document.querySelector("#homemaking-title");
 const interactionCard = exhibit.querySelector(".catalog__categories > :last-child");
 const opener = interactionCard.querySelector("#open-homemaking");

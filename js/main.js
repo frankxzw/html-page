@@ -1,4 +1,4 @@
-import { createScenePanorama } from "./panorama.js?v=exhibit-drag";
+import { createScenePanorama } from "./panorama.js?v=orbit-resume";
 
 const exhibit = document.querySelector(".exhibit");
 const scene = document.querySelector(".scene");
@@ -15,12 +15,14 @@ const atlasImage = document.querySelector("#atlas-image");
 const atlasView = document.querySelector("#atlas-view");
 const closeButton = document.querySelector("#close-atlas");
 const maxSceneZoom = 1.1;
+const backgroundDragThreshold = 4;
 let activeHotspot = null;
-let atlasOpener = null;
+let backgroundPress = null;
 
 const panorama = createScenePanorama(scene.querySelector(".scene__panorama"), sceneBackground, {
   artifacts: sceneWorld.querySelectorAll(".artifact"),
   shouldPause: () => activeHotspot || sceneWorld.querySelector(".hotspot:hover, .hotspot:focus-visible"),
+  resumeAtOrbitSpeed: true,
 });
 
 function selectHotspot(nextHotspot) {
@@ -76,22 +78,41 @@ homeButton.addEventListener("click", () => {
 resetButton.addEventListener("click", () => selectHotspot(null));
 helpButton.addEventListener("click", () => showHelp(helpPanel.hidden));
 
-exhibit.addEventListener("click", (event) => {
-  const hotspot = event.target.closest(".hotspot");
+sceneBackground.addEventListener("pointerdown", (event) => {
+  if (event.isPrimary && event.button === 0) {
+    backgroundPress = { pointerId: event.pointerId, x: event.clientX, dragged: false };
+  }
+});
+
+sceneBackground.addEventListener("pointermove", (event) => {
+  if (event.pointerId === backgroundPress?.pointerId && event.buttons === 1
+      && Math.abs(event.clientX - backgroundPress.x) > backgroundDragThreshold) {
+    backgroundPress.dragged = true;
+  }
+});
+
+document.addEventListener("click", (event) => {
+  const target = event.target;
+  const followedDrag = target === sceneBackground && event.detail > 0 && backgroundPress?.dragged;
+  if (atlas.contains(target) || followedDrag) return;
+
+  const hotspot = target.closest(".hotspot");
   if (hotspot) {
     selectHotspot(hotspot === activeHotspot ? null : hotspot);
     return;
   }
 
-  const opener = event.target.closest(".wish__open");
+  const opener = target.closest(".wish__open");
   if (opener) {
-    atlasOpener = opener;
     atlasTitle.textContent = opener.dataset.title;
     atlasImage.alt = opener.dataset.title + "，展示器物介绍、工艺纹样和结构细节。";
     atlasImage.src = opener.dataset.image;
     atlas.showModal();
     atlasView.scrollTo(0, 0);
+    return;
   }
+
+  if (activeHotspot && !target.closest(".wish")) selectHotspot(null);
 });
 
 exhibit.addEventListener("keydown", (event) => {
@@ -102,7 +123,11 @@ exhibit.addEventListener("keydown", (event) => {
 });
 
 closeButton.addEventListener("click", () => atlas.close());
-atlas.addEventListener("close", () => atlasOpener.focus({ preventScroll: true }));
+atlas.addEventListener("close", () => {
+  const hotspot = activeHotspot;
+  selectHotspot(null);
+  hotspot?.focus({ preventScroll: true });
+});
 
 if (history.state?.exhibitMode === "explore"
     && performance.getEntriesByType("navigation")[0]?.type === "back_forward") {

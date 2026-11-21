@@ -16,6 +16,13 @@
   box-sizing: border-box;
 }
 
+*, *::before, *::after, dialog::backdrop {
+  /* 浏览器在视口边缘限制大光标时，仍保留圆形光斑。 */
+  cursor: url("../assets/images/cursor-glow.png?v=35-soft") 17 17,
+          url("../assets/images/cursor-glow-edge.png?v=35-soft") 15 15,
+          none;
+}
+
 [hidden] {
   display: none !important;
 }
@@ -30,7 +37,6 @@ body {
 button {
   color: inherit;
   font: inherit;
-  cursor: pointer;
 }
 
 button:focus-visible,
@@ -71,7 +77,6 @@ a:focus-visible,
 }
 
 .exhibit[data-mode="explore"] :is(.scene__background, .catalog__background) {
-  cursor: grab;
   touch-action: pan-y pinch-zoom;
   user-select: none;
 }
@@ -82,10 +87,6 @@ a:focus-visible,
   width: 100%;
   height: 100%;
   pointer-events: none;
-}
-
-.exhibit[data-mode="explore"] :is(.scene__background, .catalog__background).is-dragging {
-  cursor: grabbing;
 }
 
 .plaque {
@@ -104,7 +105,6 @@ a:focus-visible,
 
 .plaque:disabled {
   opacity: .65;
-  cursor: default;
 }
 
 .plaque img,
@@ -236,31 +236,23 @@ a:focus-visible,
   }
 }
 
-.hotspot::after,
-.catalog-card::after {
+.hotspot::after {
   position: absolute;
-  visibility: hidden;
   width: 38px;
   height: 38px;
   background: url("../assets/images/catalog-hand.png") center / contain no-repeat;
   pointer-events: none;
-  content: "";
-}
-
-.hotspot::after {
   right: -13px;
   bottom: -8px;
 }
 
-.hotspot:focus-visible::after,
-.catalog-card:focus-visible::after {
-  visibility: visible;
+.hotspot:focus-visible::after {
+  content: "";
 }
 
 @media (hover: hover) {
-  .hotspot:hover::after,
-  .catalog-card:hover::after {
-    visibility: visible;
+  .hotspot:hover::after {
+    content: "";
   }
 }
 
@@ -534,7 +526,6 @@ body:has(.atlas[open]) {
   background: transparent;
   color: var(--ink);
   text-align: start;
-  cursor: pointer;
 }
 
 .catalog-card::before {
@@ -589,24 +580,50 @@ body:has(.atlas[open]) {
   line-height: 1.05;
 }
 
-.catalog-card::after {
+:is(.catalog, .procession) .catalog-card::after {
+  position: absolute;
   z-index: 1;
-  right: -.45rem;
-  bottom: .35rem;
+  top: 100%;
+  left: 100%;
+  width: clamp(34px, 3.3cqw, 50px);
+  aspect-ratio: 1;
+  background: url("../assets/images/catalog-hand.png") center / contain no-repeat;
+  filter: drop-shadow(0 2px 6px var(--accent));
+  translate: -50% -50%;
+}
+
+.catalog div.catalog-card::after {
+  pointer-events: none;
+}
+
+:is(.catalog button.catalog-card, .procession button.catalog-card):focus-visible::after {
+  content: "";
+}
+
+@media (hover: hover) {
+  :is(.catalog .catalog-card, .procession button.catalog-card):hover::after {
+    content: "";
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hotspot::after,
+  :is(.catalog, .procession) .catalog-card::after {
+    animation: catalog-hand-pulse 900ms ease-in-out 2;
+  }
+}
+
+@keyframes catalog-hand-pulse {
+  50% {
+    opacity: .5;
+    transform: translateY(-5px);
+  }
 }
 
 .catalog .scene-nav {
   right: auto;
   bottom: 6.45%;
   left: 5.33%;
-}
-
-:is(.procession, .homemaking, .wishes) div.catalog-card {
-  cursor: default;
-}
-
-:is(.procession, .homemaking, .wishes) .catalog-card::after {
-  content: none;
 }
 
 .procession__bridge {
@@ -788,7 +805,6 @@ body:has(.atlas[open]) {
 .placement__categories label {
   position: relative;
   min-width: 0;
-  cursor: pointer;
 }
 
 .placement__categories input {
@@ -799,7 +815,6 @@ body:has(.atlas[open]) {
   height: 100%;
   margin: 0;
   opacity: 0;
-  cursor: pointer;
 }
 
 .placement__categories span {
@@ -878,7 +893,6 @@ body:has(.atlas[open]) {
   background: transparent;
   font-size: clamp(11px, 1.075cqw, 20px);
   white-space: nowrap;
-  cursor: grab;
 }
 
 .placement__furniture img {
@@ -908,7 +922,6 @@ body:has(.atlas[open]) {
   border: 0;
   border-radius: 4px;
   background: transparent;
-  cursor: grab;
   translate: -50% -50%;
 }
 
@@ -1124,7 +1137,6 @@ body:has(.atlas[open]) {
 }
 
 .journey__action:disabled {
-  cursor: default;
   filter: grayscale(.8);
 }
 
@@ -1280,7 +1292,6 @@ body:has(.atlas[open]) {
   scale: var(--card-scale, 1.08);
   transform: perspective(58cqw) rotateY(var(--card-angle, 0deg));
   transition: translate var(--fade) ease-out, scale var(--fade) ease-out, transform var(--fade) ease-out;
-  cursor: grab;
 }
 
 .catalog-atlas__card:is([data-slot="-1"], [data-slot="1"]) {
@@ -1318,11 +1329,6 @@ body:has(.atlas[open]) {
 .catalog-atlas__card.is-wrapping {
   transition: none;
   animation: catalog-card-reappear var(--fade) ease-out;
-}
-
-.catalog-atlas__cards.is-dragging,
-.catalog-atlas__cards.is-dragging .catalog-atlas__card {
-  cursor: grabbing;
 }
 
 @keyframes catalog-card-reappear {
@@ -1431,7 +1437,7 @@ body:has(.atlas[open]) {
     height: auto;
   }
 
-  :is(.homemaking, .wishes) .catalog__categories > :last-child {
+  :is(.procession, .homemaking, .wishes) .catalog__categories > :last-child {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 44px;
     align-items: center;
@@ -1442,6 +1448,10 @@ body:has(.atlas[open]) {
     top: 50%;
     left: calc(100% + .3rem);
     translate: 0 -50%;
+  }
+
+  .procession button.catalog-card::after {
+    translate: 0 -100%;
   }
 
   .catalog-card {
@@ -1456,9 +1466,12 @@ body:has(.atlas[open]) {
     content: none;
   }
 
-  .catalog-card::after {
+  .catalog .catalog-card::after {
+    top: auto;
     right: .2rem;
     bottom: .2rem;
+    left: auto;
+    translate: none;
   }
 
   .catalog-card__name,
@@ -1630,7 +1643,6 @@ body:has(.atlas[open]) {
   border: 1px solid #e9c8a5;
   border-radius: .65rem .35rem;
   background: rgb(255 247 231 / 86%);
-  cursor: pointer;
 }
 
 .wish-option:has(input:checked),
@@ -1668,7 +1680,6 @@ body:has(.atlas[open]) {
   height: 1.1rem;
   margin: 0;
   accent-color: var(--wish-red);
-  cursor: inherit;
 }
 
 .wish-preview {
@@ -1793,7 +1804,6 @@ body:has(.atlas[open]) {
   border: 1px solid #e9c8a5;
   border-radius: .5rem;
   background: #faecdc;
-  cursor: pointer;
   text-align: center;
 }
 

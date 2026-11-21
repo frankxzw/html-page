@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>十里红妆 · 十里成行</title>
   <link rel="icon" href="assets/images/scroll.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=exhibit-drag">
+  <link rel="stylesheet" href="css/style.css?v=catalog-hand-hover">
   <link rel="preload" as="image" href="assets/images/page-3/procession-gallery.jpeg" fetchpriority="low">
-  <script type="module" src="js/page3.js?v=explore-reveal"></script>
+  <script type="module" src="js/page3.js?v=orbit-resume"></script>
 </head>
 <body>
   <main class="exhibit procession" data-mode="cover" aria-label="十里红妆">
@@ -46,6 +46,13 @@
             <p class="catalog-card__items">屏幕可叠加相应的虚拟人物、器物与行进场景，让原本静止的展品进入动态队伍</p>
           </div>
         </li>
+        <li style="--category-x: 20.66%; --category-y: 43.14%">
+          <button class="catalog-card" type="button" id="open-wedding-rites" aria-label="打开红妆礼序"
+                  aria-describedby="wedding-rites-items" aria-haspopup="dialog" aria-controls="wedding-rites">
+            <span class="catalog-card__name">红妆礼序</span>
+            <span class="catalog-card__items" id="wedding-rites-items">从备嫁、陈妆到送嫁迎亲，一件件红妆器物随队伍穿过街巷，最终进入新的家庭</span>
+          </button>
+        </li>
       </ul>
     </section>
 
@@ -73,6 +80,16 @@
       </ul>
     </aside>
   </main>
+
+  <dialog class="atlas journey-dialog" id="wedding-rites" aria-label="红妆礼序">
+    <form class="journey__toolbar" method="dialog">
+      <button class="atlas__close journey__close" type="submit" aria-label="关闭红妆礼序" autofocus>
+        <img src="assets/images/close.png" alt="">
+      </button>
+    </form>
+    <img class="journey__art" src="assets/images/page-3/wedding-rites.jpeg" width="1859" height="846" loading="lazy"
+         alt="十里红妆婚俗流程图，依次展示备嫁、陈妆、送嫁、迎亲和入户五道礼序。">
+  </dialog>
 
   <dialog class="atlas journey-dialog" id="procession-journey" aria-label="十里成行">
     <div class="journey__toolbar">
